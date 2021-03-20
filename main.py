@@ -28,7 +28,6 @@ scripts = {
     'shake_started': False,
     'trigger_running': False,
     'trigger_started': False,
-    'zeus_running': False,
     'zeus_started': False
 }
 
@@ -73,7 +72,7 @@ def kill_all():
         cmd_run('taskkill /f /im hnh_shake.exe')
     if scripts['trigger_running']:
         cmd_run('taskkill /f /im hnh_trigger.exe')
-    if scripts['zeus_running']:
+    if scripts['zeus_started']:
         cmd_run('taskkill /f /im hnh_zeus.exe')
 
 
@@ -87,7 +86,7 @@ def check_window():
                 run_program('hnh_fastzoom.vbs')
                 scripts['zoom_running'] = True
             if scripts['recoil_started'] and not scripts['recoil_running']:
-                run_program('no_recoil.vbs')
+                run_program('hnh_no_recoil.vbs')
                 scripts['recoil_running'] = True
             if scripts['shake_started'] and not scripts['shake_running']:
                 run_program('hnh_shake.vbs')
@@ -95,7 +94,7 @@ def check_window():
             if scripts['trigger_started'] and not scripts['trigger_running']:
                 run_program('hnh_trigger.vbs')
                 scripts['trigger_running'] = True
-            time_sleep(1)
+            time_sleep(0.1)
         else:
             if scripts['bunny_hop_started'] and scripts['bunny_hop_running']:
                 cmd_run('taskkill /f /im hnh_bhop.exe')
@@ -179,7 +178,6 @@ def toggle_zeus():
     global scripts
     if scripts['zeus_started']:
         scripts['zeus_started'] = False
-        scripts['zeus_running'] = False
         NewThread(target=lambda: cmd_run('taskkill /f /im hnh_zeus.exe')).start()
         ui.ahkzeusButton.setText('On')
     else:
