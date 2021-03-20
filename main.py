@@ -4,17 +4,18 @@ from os import system as cmd_run
 from sys import exit as exit_
 from win32gui import GetForegroundWindow as GetCurrentWindow
 from win32gui import GetWindowText as GetText
-from win32api import GetAsyncKeyState as KeyState
+from win32gui import EnumWindows as WindowsHandler
 from PyQt5 import QtWidgets as Widgets
+from PyQt5.QtWidgets import QMessageBox as MessageBox
 from ui import Ui_MainWindow as NewMainWindow
 from clear_cache import clear as clear_cache
 from threading import Thread as NewThread
 from time import sleep as time_sleep
-from pyautogui import scroll as scroll_mouse
 from os import startfile as run_program
 
 
 running = True
+csgo_launched = False
 scripts = {
     'bunny_hop_running': False,
     'bunny_hop_started': False,
@@ -22,8 +23,18 @@ scripts = {
 }
 
 
+def enum_handler(hwnd, ctx):
+    global csgo_launched
+    if GetText(hwnd) == 'Counter-Strike: Global Offensive':
+        csgo_launched = True
+
+
 def csgo_is_not_ran():
-    return False
+    global csgo_launched
+    WindowsHandler(enum_handler, None)
+    result_csgo: bool = not csgo_launched
+    del csgo_launched
+    return result_csgo
 
 
 def kill_all():
@@ -77,14 +88,20 @@ def setup_ui():
 
 
 if __name__ == '__main__':
-    if csgo_is_not_ran():
-        input('CSGO is not launched, press ENTER to continue...')
-        exit(1)
     app = Widgets.QApplication([__name__])
     MainWindow = Widgets.QMainWindow()
     ui = NewMainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    if csgo_is_not_ran():
+        running = False
+        msg = MessageBox()
+        msg.setIcon(MessageBox.Critical)
+        msg.setWindowTitle('Error!')
+        msg.setText('CSGO is not launched!')
+        msg.show()
+        clear_cache()
+        msg.buttonClicked.connect(lambda: exit(1))
     setup_ui()
     NewThread(target=check_window).start()
     result = app.exec_()
