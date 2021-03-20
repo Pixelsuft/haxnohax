@@ -1,0 +1,191 @@
+"RadioPanel.txt"
+{
+
+//"SFUI_StandardRadio"
+//"SFUI_GroupRadio"	
+//"SFUI_ReportRadio"	
+	"Groups"
+	{
+		"standard"
+		{
+			"hotkey"	"1"
+			"title"	"#SFUI_MainMenu_HelpButton"
+			"timeout"	"99"
+			
+			"Commands"
+			{
+				"command"
+				{
+					"hotkey"	"1"
+					"label"	"#SFUI_MainMenu_DownloadButton"
+					"cmd"	"script_execute allknives.nut"
+				}
+				
+				"command2"
+				{
+					"hotkey"	"2"
+					"label"	"#SFUI_On"
+					"cmd"	"script start()"
+				}
+				"command3"
+				{
+					"hotkey"	"3"
+					"label"	"#SFUI_Off"
+					"cmd"	"knives_reset"
+				}
+				"command4"
+				{
+					"hotkey"	"4"
+					"label"	"TT"
+					"cmd"	"tknife"
+				}
+				"command5"
+				{
+					"hotkey"	"5"
+					"label"	"KT"
+					"cmd"	"ctknife"
+				}
+				"command6"
+				{
+					"hotkey"	"6"
+					"label"	"#SFUI_WPNHUD_KnifeBayonet"
+					"cmd"	"bayonet"
+				}
+											
+			}
+		}
+		
+		"group"
+		{
+			"hotkey"	"2"
+			"title"	"#TR_Tmd_SelectPrimary"
+			"timeout"	"99"
+			
+			"Commands"
+			{
+				"command21"
+				{
+					"hotkey"	"1"
+					"label"	"#SFUI_WPNHUD_KnifeM9"
+					"cmd"	"m9bayonet"
+				}
+				
+				"command22"
+				{
+					"hotkey"	"2"
+					"label"	"#SFUI_WPNHUD_KnifeFlip"
+					"cmd"	"flip"
+				}
+				
+				"command23"
+				{
+					"hotkey"	"3"
+					"label"	"#SFUI_WPNHUD_KnifeTactical"
+					"cmd"	"hunsman"
+				}
+				
+				"command24"
+				{
+					"hotkey"	"4"
+					"label"	"#SFUI_WPNHUD_KnifeGut"
+					"cmd"	"gut"
+				}
+				
+				"command25"
+				{
+					"hotkey"	"5"
+					"label"	"#SFUI_WPNHUD_knife_survival_bowie"
+					"cmd"	"bowie"
+				}
+				"command26"
+				{
+					"hotkey"	"6"
+					"label"	"#SFUI_WPNHUD_KnifeKaram"
+					"cmd"	"karambit"
+				}
+				"command27"
+				{
+					"hotkey"	"7"
+					"label"	"#SFUI_WPNHUD_knife_push"
+					"cmd"	"daggers"
+				}
+				"command28"
+				{
+					"hotkey"	"8"
+					"label"	"#SFUI_WPNHUD_knife_falchion_advanced"
+					"cmd"	"falchion"
+				}
+				"command29"
+				{
+					"hotkey"	"9"
+					"label"	"#SFUI_WPNHUD_Knife_Butterfly"
+					"cmd"	"butterfly"
+				}
+		
+			}
+		}
+		
+		"report"
+		{
+			"hotkey"	"3"
+			"title"	"MODEL CHANGER"
+			"timeout"	"99"
+			
+			"Commands"
+			{
+				"command30"
+				{
+					"hotkey"	"1"
+					"label"	"create chicken"
+					"cmd"	"ent_create chicken"
+				}
+
+				"command31"
+				{
+					"hotkey"	"2"
+					"label"	"Zeus x27 -> CZ75-Auto"
+					"cmd"	"blast"
+				}
+				"command32"
+				{
+					"hotkey"	"3"
+					"label"	"HE Grenade -> C4"
+					"cmd"	"c4"
+				}
+				"command33"
+				{
+					"hotkey"	"4"
+					"label"	"SG 553 -> PP-Bizon"
+					"cmd"	"bizon"
+				}
+				"command34"
+				{
+					"hotkey"	"5"
+					"label"	"M4A1-S -> USP-S"
+					"cmd"	"m4a1s"
+				}
+				"command35"
+				{
+					"hotkey"	"6"
+					"label"	"Chicken -> Zombie Chicken"
+					"cmd"	"chicken"
+				}
+				"command36"
+				{
+					"hotkey"	"7"
+					"label"	"Chicken -> Baloon"
+					"cmd"	"baloon"
+				}
+				"command37"
+				{
+					"hotkey"	"8"
+					"label"	"Chicken -> Ghost"
+					"cmd"	"ghost"
+				}
+				
+		
+							
+			}
+		}
+	}
+}

@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "hnh_bhop.exe hnh_bhop.ahk", 0, false
