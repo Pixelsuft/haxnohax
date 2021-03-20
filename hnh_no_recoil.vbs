@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "hnh_no_recoil.exe hnh_no_recoil.ahk", 0, false

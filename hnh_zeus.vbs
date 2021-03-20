@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "hnh_zeus.exe hnh_zeus.ahk", 0, false

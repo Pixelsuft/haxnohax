@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "hnh_shake.exe hnh_shake.ahk", 0, false

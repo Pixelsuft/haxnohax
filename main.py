@@ -19,8 +19,31 @@ csgo_launched = False
 scripts = {
     'bunny_hop_running': False,
     'bunny_hop_started': False,
-    'cross_hair_running': False
+    'cross_hair_running': False,
+    'zoom_running': False,
+    'zoom_started': False,
+    'recoil_running': False,
+    'recoil_started': False,
+    'shake_running': False,
+    'shake_started': False,
+    'trigger_running': False,
+    'trigger_started': False,
+    'zeus_running': False,
+    'zeus_started': False
 }
+
+
+def fast_read(filename):
+    temp_file = open(filename, 'r')
+    file_read = temp_file.read()
+    temp_file.close()
+    return file_read
+
+
+def fast_write(content, filename):
+    temp_file = open(filename, 'w')
+    temp_file.write(content)
+    temp_file.close()
 
 
 def enum_handler(hwnd, ctx):
@@ -42,6 +65,16 @@ def kill_all():
         cmd_run('taskkill /f /im hnh_bhop.exe')
     if scripts['cross_hair_running']:
         cmd_run('taskkill /f /im hnh_crosshair.exe')
+    if scripts['zoom_running']:
+        cmd_run('taskkill /f /im hnh_fastzoom.exe')
+    if scripts['recoil_running']:
+        cmd_run('taskkill /f /im hnh_no_recoil.exe')
+    if scripts['shake_running']:
+        cmd_run('taskkill /f /im hnh_shake.exe')
+    if scripts['trigger_running']:
+        cmd_run('taskkill /f /im hnh_trigger.exe')
+    if scripts['zeus_running']:
+        cmd_run('taskkill /f /im hnh_zeus.exe')
 
 
 def check_window():
@@ -50,11 +83,35 @@ def check_window():
             if scripts['bunny_hop_started'] and not scripts['bunny_hop_running']:
                 run_program('hnh_bhop.vbs')
                 scripts['bunny_hop_running'] = True
+            if scripts['zoom_started'] and not scripts['zoom_running']:
+                run_program('hnh_fastzoom.vbs')
+                scripts['zoom_running'] = True
+            if scripts['recoil_started'] and not scripts['recoil_running']:
+                run_program('no_recoil.vbs')
+                scripts['recoil_running'] = True
+            if scripts['shake_started'] and not scripts['shake_running']:
+                run_program('hnh_shake.vbs')
+                scripts['shake_running'] = True
+            if scripts['trigger_started'] and not scripts['trigger_running']:
+                run_program('hnh_trigger.vbs')
+                scripts['trigger_running'] = True
             time_sleep(1)
         else:
             if scripts['bunny_hop_started'] and scripts['bunny_hop_running']:
                 cmd_run('taskkill /f /im hnh_bhop.exe')
                 scripts['bunny_hop_running'] = False
+            if scripts['zoom_started'] and scripts['zoom_running']:
+                cmd_run('taskkill /f /im hnh_fastzoom.exe')
+                scripts['zoom_running'] = False
+            if scripts['recoil_started'] and scripts['recoil_running']:
+                cmd_run('taskkill /f /im hnh_no_recoil.exe')
+                scripts['recoil_running'] = False
+            if scripts['shake_started'] and scripts['shake_running']:
+                cmd_run('taskkill /f /im hnh_shake.exe')
+                scripts['shake_running'] = False
+            if scripts['bunny_hop_started'] and scripts['trigger_running']:
+                cmd_run('taskkill /f /im hnh_trigger.exe')
+                scripts['trigger_running'] = False
             time_sleep(1)
 
 
@@ -68,6 +125,67 @@ def toggle_bunny_hop():
     else:
         scripts['bunny_hop_started'] = True
         ui.ahkbhopButton.setText('Off')
+
+
+def toggle_fast_zoom():
+    global scripts
+    if scripts['zoom_started']:
+        scripts['zoom_started'] = False
+        scripts['zoom_running'] = False
+        NewThread(target=lambda: cmd_run('taskkill /f /im hnh_fastzoom.exe')).start()
+        ui.ahkfastzoomButton.setText('On')
+    else:
+        scripts['zoom_started'] = True
+        ui.ahkfastzoomButton.setText('Off')
+
+
+def toggle_no_recoil():
+    global scripts
+    if scripts['recoil_started']:
+        scripts['recoil_started'] = False
+        scripts['recoil_running'] = False
+        NewThread(target=lambda: cmd_run('taskkill /f /im hnh_no_recoil.exe')).start()
+        ui.ahknorecoilButton.setText('On')
+    else:
+        scripts['recoil_started'] = True
+        ui.ahknorecoilButton.setText('Off')
+
+
+def toggle_shake():
+    global scripts
+    if scripts['shake_started']:
+        scripts['shake_started'] = False
+        scripts['shake_running'] = False
+        NewThread(target=lambda: cmd_run('taskkill /f /im hnh_shake.exe')).start()
+        ui.ahkshakeButton.setText('On')
+    else:
+        scripts['shake_started'] = True
+        ui.ahkshakeButton.setText('Off')
+
+
+def toggle_trigger():
+    global scripts
+    if scripts['trigger_started']:
+        scripts['trigger_started'] = False
+        scripts['trigger_running'] = False
+        NewThread(target=lambda: cmd_run('taskkill /f /im hnh_trigger.exe')).start()
+        ui.ahktriggerButton.setText('On')
+    else:
+        scripts['trigger_started'] = True
+        ui.ahktriggerButton.setText('Off')
+
+
+def toggle_zeus():
+    global scripts
+    if scripts['zeus_started']:
+        scripts['zeus_started'] = False
+        scripts['zeus_running'] = False
+        NewThread(target=lambda: cmd_run('taskkill /f /im hnh_zeus.exe')).start()
+        ui.ahkzeusButton.setText('On')
+    else:
+        NewThread(target=lambda: cmd_run('hnh_zeus.vbs')).start()
+        scripts['zeus_started'] = True
+        ui.ahkzeusButton.setText('Off')
 
 
 def toggle_cross_hair():
@@ -85,6 +203,11 @@ def toggle_cross_hair():
 def setup_ui():
     ui.ahkbhopButton.clicked.connect(toggle_bunny_hop)
     ui.crosshairButton.clicked.connect(toggle_cross_hair)
+    ui.ahkfastzoomButton.clicked.connect(toggle_fast_zoom)
+    ui.ahknorecoilButton.clicked.connect(toggle_no_recoil)
+    ui.ahkshakeButton.clicked.connect(toggle_shake)
+    ui.ahktriggerButton.clicked.connect(toggle_trigger)
+    ui.ahkzeusButton.clicked.connect(toggle_zeus)
 
 
 if __name__ == '__main__':
@@ -94,14 +217,11 @@ if __name__ == '__main__':
     ui.setupUi(MainWindow)
     MainWindow.show()
     if csgo_is_not_ran():
-        running = False
         msg = MessageBox()
-        msg.setIcon(MessageBox.Critical)
-        msg.setWindowTitle('Error!')
+        msg.setIcon(MessageBox.Warning)
+        msg.setWindowTitle('Warning!')
         msg.setText('CSGO is not launched!')
         msg.show()
-        clear_cache()
-        msg.buttonClicked.connect(lambda: exit(1))
     setup_ui()
     NewThread(target=check_window).start()
     result = app.exec_()

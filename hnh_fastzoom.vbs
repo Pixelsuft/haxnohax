@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "hnh_fastzoom.exe hnh_fastzoom.ahk", 0, false

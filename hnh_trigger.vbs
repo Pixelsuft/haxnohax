@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "hnh_trigger.exe hnh_trigger.ahk", 0, false
